@@ -7,6 +7,29 @@ public class Default {
     private Account account;
 
     public Default(){}
+    public void enterDefault(boolean missedPayment){
+        if(missedPayment){
+            curState = DefaultState.PENDING_PAYMENT_PLAN
+            penalty = -20;
+        } else{
+            curState = DefaultState.GRACE_PERIOD
+        }
+    }
+    public void failedToPayUnderGrace(){
+        if(curState == DefaultState.GRACE_PERIOD){
+            curState = DefaultState.PENDING_PAYMENT_PLAN;
+        }
+    }
+    public void failedPaymentPlanResponse(){
+        if(curState == DefaultState.PENDING_PAYMENT_PLAN){
+            curState = DefaultState.UNHEALTHY_DEBT;
+        }
+    }
+    public void refusedPaymentPlan(){
+        if(curState == DefaultState.PENDING_PAYMENT_PLAN){
+            curState = DefaultState.UNHEALTHY_DEBT;
+        }
+    }
 
     public void acceptsPaymentPlan(){
         if (curState == DefaultState.PENDING_PAYMENT_PLAN){
