@@ -7,12 +7,14 @@ public class Account {
     private Date lastActive;
     private double funds;
     private double creditLimit;
+    private Default defaultState;
 
     public Account() {
         this.state = State.PENDING;
         this.lastActive = new Date();
         this.funds = 0.0;
         this.creditLimit = 0.0;
+        this.defaultState = null;
     }
 
     public void onboard() {
@@ -88,6 +90,7 @@ public class Account {
         switch (this.state) {
             case ACTIVE: {
                 this.state = State.DEFAULT;
+                this.defaultState = new Default();
                 // TODO: implement default behavior
                 break;
             }
